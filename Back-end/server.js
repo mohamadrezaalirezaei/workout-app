@@ -1,4 +1,5 @@
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 
 const colors = require("colors");
 const express = require("express");
@@ -25,7 +26,7 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 
-port = process.env.PORT || 4000;
+let port = process.env.PORT || 4000;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
