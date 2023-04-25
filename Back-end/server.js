@@ -25,14 +25,15 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 
+port = process.env.PORT || 4000;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(process.env.PORT, function (err) {
+    app.listen(port, function (err) {
       if (err) console.log("Error in server setup");
       console.log(
         "Conected to DB & Server is listening on Port".cyan,
-        process.env.PORT.cyan
+        process.env.port.cyan
       );
     });
   })
