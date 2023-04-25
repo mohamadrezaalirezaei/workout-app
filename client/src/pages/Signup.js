@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../style/style.scss";
 import { useAuthContext } from "../hooks/useAuthContext";
+
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -8,6 +9,7 @@ const Signup = () => {
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
   const { dispatch } = useAuthContext();
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,12 +41,15 @@ const Signup = () => {
       setError(null);
       setEmptyFields([]);
       console.log("new user added", json);
+      setSuccessMessage("User added successfullyyyyyyy!");
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="signupH2">Sign Up</h2>
+      {successMessage && <div></div>}
+
       <p className="signupP">
         <label className="floatLabel">Email</label>
         <input
