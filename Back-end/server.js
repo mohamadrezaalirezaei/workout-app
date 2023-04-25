@@ -1,12 +1,17 @@
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
+const colors = require("colors");
 const express = require("express");
 const workoutRoute = require("./routes/workouts");
 const userRoute = require("./routes/user");
-const imageRoute = require("./routes/image");
 
 const mongoose = require("mongoose");
+
+const Image = require("../Back-end/models/Image");
+var bodyParser = require("body-parser");
+var fs = require("fs");
+var path = require("path");
+var multer = require("multer");
 
 //expres app
 const app = express();
@@ -19,7 +24,7 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 
-let port = process.env.PORT || 4000;
+port = process.env.PORT || 4000;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -35,11 +40,10 @@ mongoose
     console.log(error);
   });
 
-app.use((req, next) => {
+app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
 app.use("/api/workouts", workoutRoute);
 app.use("/api/user", userRoute);
-app.use("/api/image", imageRoute);
